@@ -27,14 +27,13 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                    sudo k3s ctr images import vle7-monitoring-v1.tar
-                    KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl set image deployment/vle7-app nginx=docker.io/library/vle7-monitoring:v1
-                    KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl rollout status deployment/vle7-app
-                '''
-            }
-        }
+stage('Deploy to Kubernetes') {
+    steps {
+        sh '''
+            sudo -n /usr/local/bin/import-vle7-image
+            KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl set image deployment/vle7-app nginx=docker.io/library/vle7-monitoring:v1
+            KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl rollout status deployment/vle7-app
+        '''
     }
 }
+
