@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh '''
                     sudo -n /usr/local/bin/import-vle7-image
-                    KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl set image deployment/vle7-app nginx=docker.io/library/vle7-monitoring:v1
+                    KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl set image deployment/vle7-app vle7-monitoring=docker.io/library/vle7-monitoring:v1
                     KUBECONFIG=/var/lib/jenkins/k3s.yaml kubectl rollout status deployment/vle7-app
                 '''
             }
